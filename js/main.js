@@ -1,1 +1,20 @@
-alert("hola")
+document.addEventListener('DOMContentLoaded', () => {
+
+    //*** VARIABLES ***//
+
+
+
+
+    //*** EVENTOS ***//
+
+
+
+
+
+    //*** FUNCIONES ***//
+
+
+
+
+
+}); //!LOAD
