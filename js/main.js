@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     //* VARIABLES
@@ -10,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     //* EVENTOS      
+
+
 
     const ponerId=()=>{
          formulario.action =`busqueda.html?id=${texto.value}`
@@ -104,3 +107,4 @@ init()
 
 
 })//LOAD
+
