@@ -1,6 +1,3 @@
-document.addEventListener('DOMContentLoaded',()=>{
-
-    //* VARIABLES
 
 
 
@@ -30,3 +27,4 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 })//LOAD
+
