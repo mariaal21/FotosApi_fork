@@ -27,3 +27,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     init()
 
 })//LOAD
+
+// import { createClient } from 'pexels';
+
+// const client = createClient('AF47xNz2Dq7rUjCuFzlGjs0eUuIQI87nopfo6HwwFypgZTSOZJdqEHC1');
+// const query = 'Nature';
+
+// client.photos.search({ query, per_page: 1 }).then(photos => {...});
