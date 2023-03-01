@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formulario = document.querySelector("#formulario");
   const texto = document.querySelector("#texto");
   const botones = document.querySelector("#botones");
+  
 
   //* EVENTOS
 
@@ -15,11 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.addEventListener(`click`, ({target}) => {
-        if(target=`mas`){
-            console.log(target);
+
+        if(target.matches(`#mas`)){
+                
+            pasarPaginas(target.id);
         }
-        else if (target=`menos`) {
-            console.log(target);
+        if (target.matches(`#menos`)) {
+            pasarPaginas(target.id);
+          
         }
   });
 
@@ -29,14 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let params = new URLSearchParams(url);
 
-    if (params.has("id")&&params.has("page")) {
+    if (params.has("id")) {
 
       const id = params.get("id");
+
       const page=params.get("page");
 
-      pintarBotones(page);
+      pintarBotones();
+      
 
-      pintarFotos(id);
+      pintarFotos(id,page);
 
     } else {
       console.log("yoquese");
@@ -46,13 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
   //* FUNCIONES
 
   const ponerId = () => {
-    formulario.action = `busqueda.html?id=${texto.value}&page=99`;
+    formulario.action = `busqueda.html?id=${texto.value}page=${page}`;
   };
 
   const consulta = async (busqueda, page) => {
+    console.log(page);
     try {
       let peticion = await fetch(
-        `https://api.pexels.com/v1/search?query=${busqueda}&per_page=15&page=${page}`,
+        `https://api.pexels.com/v1/search?query=${busqueda}&per_page=20&page=${page}`,
         {
           method: "GET",
           headers: {
@@ -71,10 +78,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const pintarFotos = async (id) => {
+ const pasarPaginas= (pagina)=>{
+    let page =1
+    if(pagina=="mas"){
+         page ++
+    }else if(pagina=="menos"){
+         page --
+    }
+   
+  }
 
-    const fotos = await consulta(id);
-    fotos.page=5
+  const pintarFotos = async (id,page) => {
+
+    // let paginacion=  pasarPaginas()
+    // console.log(paginacion);
+
+    const fotos = await consulta(id,page);
+    // fotos.page=7
     console.log(fotos);
     const arrayfotos = fotos.photos;
     arrayfotos.forEach(({ src }) => {
@@ -83,25 +103,32 @@ document.addEventListener("DOMContentLoaded", () => {
       div.append(img);
     }); 
     
-    return fotos.next_page
+    // return fotos.next_page
 
   };
+ 
 
   const pintarBotones = async (page) => {
 
-    const pasarpaginas= await pintarFotos()
+    // const pasarpaginas= await pintarFotos()
     // console.log(pasarpaginas);
 
     let botonFlechaMas = document.createElement("button");
-    
+    botonFlechaMas.id="mas"
+     botonFlechaMas.textContent = " >>";
+
     let boton1 = document.createElement("button");
+    boton1.textContent =1;
+
     let botonFlechaMenos = document.createElement("button");
-    boton1.textContent = page;
-    botonFlechaMas.textContent = " >>";
+    botonFlechaMenos.id="menos"
     botonFlechaMenos.textContent = "<< ";
-   
+    
+
     botones.append(botonFlechaMenos, boton1, botonFlechaMas);
   };
 
+
+  console.log(page);
   init();
 }); //LOAD
